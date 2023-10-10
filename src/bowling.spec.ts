@@ -19,4 +19,11 @@ describe("Bowling", () => {
 
     expect(() => game.roll(-1)).toThrow("Invalid number of pins")
   })
+  it("Should add the number of pins to the score", () => {
+    const game = new Game()
+
+    game.roll(5)
+
+    expect(game.score).toEqual(5)
+  })
 })
