@@ -6,4 +6,8 @@ export class Game {
 
     this.score += pins
   }
+
+  getScore(): number {
+    return this.score
+  }
 }

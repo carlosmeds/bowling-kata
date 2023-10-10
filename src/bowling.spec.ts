@@ -36,4 +36,13 @@ describe("Bowling", () => {
 
     expect(sut.score).toEqual(5)
   })
+  it("Should return the score from the game", () => {
+   const { sut } = makeSut()
+
+   sut.roll(5)
+   sut.roll(7)
+   const score = sut.getScore()
+
+    expect(score).toEqual(12)
+  })
 })
