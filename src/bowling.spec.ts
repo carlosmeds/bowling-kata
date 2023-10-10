@@ -29,13 +29,6 @@ describe("Bowling", () => {
 
     expect(() => sut.roll(-1)).toThrow("Invalid number of pins")
   })
-  it("Should add the number of pins to the score", () => {
-    const { sut } = makeSut()
-
-    sut.roll(5)
-
-    expect(sut.score).toEqual(5)
-  })
   it("Should return the score from the game", () => {
    const { sut } = makeSut()
 
@@ -44,5 +37,13 @@ describe("Bowling", () => {
    const score = sut.getScore()
 
     expect(score).toEqual(12)
+  })
+  it("Should save rolls in an array", () => {
+    const { sut } = makeSut()
+
+    sut.roll(5)
+    sut.roll(7)
+
+    expect(sut.rolls).toEqual([5, 7, ...Array(19).fill(0)])
   })
 })
