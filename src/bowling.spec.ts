@@ -65,4 +65,13 @@ describe("Bowling", () => {
 
     expect(sut.score()).toEqual(12)
   })
+  it("Should add duplicated bonus if previous frame was a strike", () => {
+    const { sut } = makeSut()
+
+    sut.roll(10)
+    sut.roll(2)
+    sut.roll(3)
+
+    expect(sut.score()).toEqual(20)
+  })
 })

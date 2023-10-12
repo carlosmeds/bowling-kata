@@ -13,6 +13,11 @@ export class Game {
     let countingRoll = 0
 
     for (let frame = 0; frame < 10; frame++) {
+      if (this.rolls[countingRoll] === 10) {
+        score +=
+          10 + this.rolls[countingRoll + 1] + this.rolls[countingRoll + 2]
+        countingRoll += 1
+      }
       if (this.rolls[countingRoll] + this.rolls[countingRoll + 1] === 10) {
         score += 10 + this.rolls[countingRoll + 2]
         countingRoll += 2
@@ -21,6 +26,7 @@ export class Game {
         countingRoll += 2
       }
     }
+    console.log(this.rolls)
     return score
   }
 }
