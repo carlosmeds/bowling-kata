@@ -1,9 +1,12 @@
+import { InvalidPinsException } from "./exceptions/InvalidPinException"
+
 export class Game {
   private currentRoll: number = 0
+  private MAX_PINS = 10
   public rolls: number[] = Array(21).fill(0)
 
   roll(pins: number): void {
-    if (pins > 10 || pins < 0) throw new Error("Invalid number of pins")
+    if (pins < 0 || pins > this.MAX_PINS) throw new InvalidPinsException()
 
     this.rolls[this.currentRoll++] = pins
   }
@@ -13,20 +16,38 @@ export class Game {
     let countingRoll = 0
 
     for (let frame = 0; frame < 10; frame++) {
-      if (this.rolls[countingRoll] === 10) {
-        score +=
-          10 + this.rolls[countingRoll + 1] + this.rolls[countingRoll + 2]
+      if (this.isStrike(countingRoll)) {
+        score += this.getPointsWithStrikeBonus(countingRoll)
         countingRoll += 1
-      }
-      if (this.rolls[countingRoll] + this.rolls[countingRoll + 1] === 10) {
-        score += 10 + this.rolls[countingRoll + 2]
+      } else if (this.isSpare(countingRoll)) {
+        score += this.getPointsWithSpareBonus(countingRoll)
         countingRoll += 2
       } else {
-        score += this.rolls[countingRoll] + this.rolls[countingRoll + 1]
+        score += this.getPoints(countingRoll)
         countingRoll += 2
       }
     }
-    console.log(this.rolls)
+
     return score
+  }
+
+  private isStrike(i: number): boolean {
+    return this.rolls[i] === 10
+  }
+
+  private isSpare(i: number): boolean {
+    return this.rolls[i] + this.rolls[i + 1] === 10
+  }
+
+  private getPointsWithStrikeBonus(i: number): number {
+    return this.MAX_PINS + this.rolls[i + 1] + this.rolls[i + 2]
+  }
+
+  private getPointsWithSpareBonus(i: number): number {
+    return this.MAX_PINS + this.rolls[i + 2] 
+  }
+
+  private getPoints(i: number): number {
+    return this.rolls[i] + this.rolls[i + 1]
   }
 }

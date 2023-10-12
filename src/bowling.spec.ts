@@ -1,4 +1,5 @@
 import { Game } from "./bowling"
+import { InvalidPinsException } from "./exceptions/InvalidPinException"
 
 type SutTypes = {
   sut: Game;
@@ -22,7 +23,7 @@ describe("Bowling", () => {
   it("Should throw an error if the number of pins is greater than 10", () => {
     const { sut } = makeSut()
 
-    expect(() => sut.roll(11)).toThrow("Invalid number of pins")
+    expect(() => sut.roll(11)).toThrow(InvalidPinsException)
   })
   it("Should throw an error if the number of pins is less than 0", () => {
     const { sut } = makeSut()
