@@ -1,7 +1,7 @@
 export class Game {
   private score: number = 0
+  private currentRoll: number = 0
   public rolls: number[] = Array(21).fill(0)
-  public currentRoll: number = 0
 
   roll(pins: number): void {
     if (pins > 10 || pins < 0) throw new Error("Invalid number of pins")
@@ -11,6 +11,15 @@ export class Game {
   }
 
   getScore(): number {
-    return this.rolls.reduce((acc, curr) => acc + curr, 0)
+    for (let frame = 0; frame < 10; frame++) {
+      const frameIndex = frame * 2
+      const frameScore = this.rolls[frameIndex] + this.rolls[frameIndex + 1]
+
+      if (frameScore === 10) {
+        this.score += this.rolls[frameIndex + 2]
+      }
+    }
+
+    return this.score
   }
 }

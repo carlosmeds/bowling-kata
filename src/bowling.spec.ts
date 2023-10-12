@@ -46,4 +46,23 @@ describe("Bowling", () => {
 
     expect(sut.rolls).toEqual([5, 7, ...Array(19).fill(0)])
   })
+  it("Should add bonus if previous frame was a spare", () => {
+    const { sut } = makeSut()
+
+    sut.roll(5)
+    sut.roll(5)
+    sut.roll(7)
+
+    expect(sut.getScore()).toEqual(24)
+  })
+  it("Should not add bonus if previous frame wasnt a spare", () => {
+    const { sut } = makeSut()
+
+    sut.roll(1)
+    sut.roll(5)
+    sut.roll(5)
+    sut.roll(1)
+
+    expect(sut.getScore()).toEqual(12)
+  })
 })
