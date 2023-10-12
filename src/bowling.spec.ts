@@ -34,7 +34,7 @@ describe("Bowling", () => {
 
    sut.roll(5)
    sut.roll(7)
-   const score = sut.getScore()
+   const score = sut.score()
 
     expect(score).toEqual(12)
   })
@@ -53,7 +53,7 @@ describe("Bowling", () => {
     sut.roll(5)
     sut.roll(7)
 
-    expect(sut.getScore()).toEqual(24)
+    expect(sut.score()).toEqual(24)
   })
   it("Should not add bonus if previous frame wasnt a spare", () => {
     const { sut } = makeSut()
@@ -63,6 +63,6 @@ describe("Bowling", () => {
     sut.roll(5)
     sut.roll(1)
 
-    expect(sut.getScore()).toEqual(12)
+    expect(sut.score()).toEqual(12)
   })
 })
